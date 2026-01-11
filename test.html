@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Scripter Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --card-bg: #161616;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent: #00ff88; /* Luau-ish Green */
+            --accent-glow: rgba(0, 255, 136, 0.2);
+            --font-mono: 'Courier New', Courier, monospace;
+            --font-sans: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Grid Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                linear-gradient(rgba(18, 18, 18, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 2px, 40px 40px, 40px 40px;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Typography */
+        h1, h2, h3 { font-family: var(--font-mono); font-weight: bold; }
+        .highlight { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
+        
+        /* Hero Section */
+        header {
+            padding: 5rem 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .tagline {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1rem; }
+        
+        .stats-row {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            border-left: 2px solid var(--accent);
+            padding-left: 1rem;
+        }
+        
+        .stat-num { font-size: 1.5rem; font-weight: bold; color: white; }
+        .stat-label { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Sections */
+        section { margin: 4rem 0; }
+        h2 { font-size: 2rem; margin-bottom: 2rem; position: relative; display: inline-block; }
+        h2::after {
+            content: ''; display: block; width: 50%; height: 4px; 
+            background: var(--accent); margin-top: 5px;
+        }
+
+        /* Project Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 2rem;
+            border-radius: 8px;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        /* IMAGE STYLING START */
+        .card-image-box {
+            width: 100%;
+            height: 180px; /* Fixed height for syncing */
+            background-color: #000;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            overflow: hidden; /* Ensures image doesn't bleed out */
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .card-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Crops image to fill box nicely */
+            transition: transform 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .card:hover .card-image-box img {
+            transform: scale(1.05); /* Zoom effect */
+            opacity: 1;
+        }
+        /* IMAGE STYLING END */
+
+        .card-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            margin-right: 0.5rem;
+        }
+
+        .metric {
+            margin-top: auto; /* Pushes metric to bottom */
+            padding-top: 1rem;
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+
+        /* Tech Stack List */
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .tech-item {
+            background: #222;
+            border: 1px solid #333;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+        }
+
+        /* Button */
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: black;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-top: 1rem;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.8; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #333;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <h1>Building Scalable<br><span class="highlight">Roblox Experiences</span>.</h1>
+            <p style="max-width: 600px; color: var(--text-muted);">
+                Specialized in combat systems, data management, and backend architecture. 
+                Experienced in scaling solo projects to hundreds of concurrent users.
+            </p>
+
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-num">200+ CCU</div>
+                    <div class="stat-label">Peak Concurrent Players</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">2</div>
+                    <div class="stat-label">Solo Dev Titles Shipped</div>
+                </div>
+            </div>
+        </header>
+
+        <section id="projects">
+            <h2>Shipped Titles</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Steal a Rapper</h3>
+                    <div style="margin: 10px 0;">
+                        <span class="card-tag">Duo Dev</span>
+                        <span class="card-tag">Simulation</span>
+                    </div>
+                    <p style="color: var(--text-muted);">
+                        Steal a brainrot copy made from scratch with rapper models. Features ragdolls, inventory systems, NPC dialogue, quests, fusions and more.
+                    </p>
+                    <div class="metric">⚡ Peak: 200 Concurrent Players</div>
+                    <a href="https://www.roblox.com/games/103360684872739/STEAL-A-RAPPER" style="color: white; font-size: 0.9rem; display: block; margin-top: 1rem;">View on Roblox →</a>
+                </div>
+
+                <div class="card">
+                    <h3>Rogue Lineage Tycoon</h3>
+                    <div style="margin: 10px 0;">
+                        <span class="card-tag">Solo Dev</span>
+                        <span class="card-tag">Tycoon</span>
+                    </div>
+                    <p style="color: var(--text-muted);">
+                        A tycoon-style game with progression mechanics, custom droppers, and upgraders.
+                    </p>
+                    <div class="metric">⚡ Avg: 20-30 Concurrent Players</div>
+                    <a href="https://www.roblox.com/games/76559184397799/Rogue-Lineage-The-Tycoon" style="color: white; font-size: 0.9rem; display: block; margin-top: 1rem;">View on Roblox →</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="demos">
+            <h2>Systems Engineering</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                Live baseplate environments where I stress-test combat mechanics and framework integrations.
+            </p>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-image-box">
+                        <img src="img/gif.gif" alt="Combat System Demo">
+                    </div>
+                    
+                    <h3>WCS Combat Implementation</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        A focused combat test utilizing the WCS framework. Features hitboxes, state management, and server-side validation.
+                    </p>
+                </div>
+
+                <div class="card">
+                     <div class="card-image-box">
+                        <img src="img/ss.png" alt="Armor script">
+                    </div>
+
+                    <h3>Armor Handler Function</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        Basic code snippet where player armor is handled.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <footer id="contact">
+            <h2>Let's Work Together</h2>
+            <p>Available for commissions and long-term projects.</p>
+            <br>
+            <p>Discord: <strong>porfinsoyadmin</strong></p>
+        </footer>
+
+    </div>
+</body>
+</html>
